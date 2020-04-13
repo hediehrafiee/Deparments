@@ -1,0 +1,55 @@
+
+<div class="content">
+  <!-- tabs -->
+  <ul>
+    <li *ngFor="let d of listOfDeparments">
+      <a [routerLink]="['',  d.title]" routerLinkActive="active">
+        {{ d.title | uppercase }} ( {{d.students.length}} )
+      </a>
+    </li>
+    <li>
+      <img [swal]="{ title: 'Enter Deparments name', input: 'text' }"
+           (confirm)="saveDeparments($event)" class="add" src="assets/img/add.png" alt="add">
+    </li>
+  </ul>
+  <div class="table">
+    <div class="title">
+      students of {{ activeRoute }}
+    </div>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Birthday</th>
+        <th>operations</th>
+      </tr>
+      <tr *ngFor="let d of deparment">
+        <td>{{ d.name }}</td>
+        <td>{{ d.surname }}</td>
+        <td>{{ d.birthday }}</td>
+        <td>
+          <button class="remove" (click)="removeDeparments(d.id)">
+            <img src="assets/img/remove.png" alt="remove">
+          </button>
+        </td>  
+      </tr>
+    </table>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+      <tr>
+        <td>
+          <input formControlName="name" name="name" placeholder="name" type="text">
+        </td>
+        <td>
+          <input formControlName="surname" name="surname" placeholder="surname" type="text">
+        </td>
+        <td>
+          <input formControlName="birthday" name="birthday" placeholder="birthday" type="text">
+        </td>
+      </tr>
+     <button type="submit">
+       <img src="assets/img/check.png" alt="check-img">
+     </button>
+    </form>
+
+  </div>
+</div>

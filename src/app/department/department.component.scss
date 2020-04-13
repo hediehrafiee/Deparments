@@ -1,0 +1,100 @@
+.content {
+  padding: 50px;
+  margin: 0 auto;
+  width: 800px;
+  text-align: center;
+  position: relative;
+  .title {
+    text-align: center;
+    margin-top: 35px;
+    margin-bottom: 30px;
+  }
+  ul {
+    list-style: none;
+    margin-top: 30px;
+    display: inline-block;
+    border-bottom: 2px solid #80808080;
+    padding-left: 0px;
+    li {
+      display: inline-block;
+      a {
+        color: black;
+        text-decoration: none;
+        padding: 0px 8px;
+        margin: 0px 50px;
+        display: inline-block;
+        font-size: 1.2rem;
+        &:first-child {
+          margin-left: 0px;
+        }
+        &.active {
+          color: #5881BC;
+          border-bottom: 2px solid #5881BC;
+          font-weight: bold;
+          padding-bottom: 5px;
+        }
+      }
+      .add {
+        width: 32px;
+        margin-bottom: -5px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;  
+    border: 1px solid #5881BC;
+    text-align: left;
+    td, th  {
+       border: 1px solid #5881BC;
+      text-align: left;
+      padding: 15px;
+      width: 125px;
+    }
+    .remove {
+      background: inherit;
+      border: none;
+      margin-left: 5px;
+    }
+    th {
+      background-color: rgb(68, 112, 173);
+      color: white;
+    }
+    tr:nth-child(odd):not(:first-child) {
+      background-color: #eee;
+    }
+  }
+
+}
+
+form {
+  margin-top: 30px;
+  tr {
+    width: 100%;
+    display: table;
+  }
+  td, th  {
+    border: 1px solid #5881BC;
+   text-align: left;
+ }
+  input {
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  button {
+    position: absolute;
+    right: -25px;
+    bottom: 55px;
+    background: white;
+    border: none;
+    img {
+      width: 45px;
+    }
+  }
+  td {
+    padding: 10px!important;
+  }
+}
