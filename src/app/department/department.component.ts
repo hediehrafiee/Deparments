@@ -33,7 +33,11 @@ export class DepartmentComponent implements OnInit {
 
   getDeparments(){
     this.activeRoute = this.route.snapshot.params.id.toUpperCase();
-    this.listOfDeparments = [ 
+    if(localStorage.getItem('deparments')) {
+      console.log('here');
+      this.listOfDeparments = JSON.parse(localStorage.getItem('deparments'));
+    } else {
+      this.listOfDeparments = [ 
         { title : "d1" , 
           students : [{id: 1 , name: "hossein", surname:"rafiee",birthday:"1991-01-02"},
                       {id: 2 , name: "hedeih", surname:"rafiee",birthday:"1995-02-04"},
@@ -52,10 +56,8 @@ export class DepartmentComponent implements OnInit {
                       {id: 9 , name: "asal", surname:"parvane",birthday:"1991-01-02"}] 
         } 
     ];
-    if(!localStorage.getItem('updateListOdDeparteman')) {
-      localStorage.setItem('deparments', JSON.stringify(this.listOfDeparments));
+      localStorage.setItem('deparments', JSON.stringify(this.listOfDeparments))
     }
-    this.listOfDeparments = JSON.parse(localStorage.getItem('deparments'));
     this.deparment = this.listOfDeparments.find(element => element.title.toUpperCase() == this.activeRoute).students;
   }
 
@@ -84,16 +86,17 @@ export class DepartmentComponent implements OnInit {
   }
 
   removeDeparments(id:number) {
-    localStorage.setItem('updateListOdDeparteman', 'updateListOdDeparteman');
     this.deparment = this.deparment.filter(item => item.id !== id);
-    // localStorage.setItem('deparments', JSON.stringify(this.deparment));
-    // this.getDeparments();
+    console.log(this.deparment);
+    let dep = this.listOfDeparments.find(element => element.title.toUpperCase() == this.activeRoute);
+    dep.students = this.deparment;
+    localStorage.setItem('deparments', JSON.stringify(this.listOfDeparments));
   }
   
   saveDeparments(name: string): void {
     if(!name) return
     this.listOfDeparments.push({ title: name, students:[ ] });
-    localStorage.setItem('updateListOdDeparteman', 'updateListOdDeparteman');
+    console.log("departments", this.listOfDeparments);
     localStorage.setItem('deparments', JSON.stringify(this.listOfDeparments));
   }
 
