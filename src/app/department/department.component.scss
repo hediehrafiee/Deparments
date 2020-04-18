@@ -1,9 +1,6 @@
 .content {
+  overflow-x: hidden;
   padding: 50px;
-  margin: 0 auto;
-  width: 800px;
-  text-align: center;
-  position: relative;
   .title {
     text-align: center;
     margin-top: 35px;
@@ -24,6 +21,7 @@
         margin: 0px 50px;
         display: inline-block;
         font-size: 1.2rem;
+        cursor: pointer!important;
         &:first-child {
           margin-left: 0px;
         }
@@ -34,67 +32,62 @@
           padding-bottom: 5px;
         }
       }
-      .add {
-        width: 32px;
-        margin-bottom: -5px;
-        cursor: pointer;
-      }
     }
   }
+}
 
-  table {
-    border-collapse: collapse;
-    width: 100%;  
-    border: 1px solid #5881BC;
-    text-align: left;
-    td, th  {
-       border: 1px solid #5881BC;
-      text-align: left;
-      padding: 15px;
-      width: 125px;
-    }
-    .remove {
-      background: inherit;
-      border: none;
-      margin-left: 5px;
-    }
-    th {
-      background-color: rgb(68, 112, 173);
-      color: white;
-    }
-    tr:nth-child(odd):not(:first-child) {
-      background-color: #eee;
-    }
+a {
+  cursor: pointer!important;
+}
+
+.titles {
+  .col-3  {
+    font-weight: 700;
+    font-size: 1.2rem !important;
   }
+}
 
+.col-3 {
+  padding: 13px;
+  border: 1px solid #8080804f;
+}
+
+h1 {
+  font-size: 1.7rem;
+  font-weight: bold;
+  margin-left: -10px;
 }
 
 form {
-  margin-top: 30px;
-  tr {
-    width: 100%;
-    display: table;
+  input{
+    border: none!important;
+    height: 100%;
   }
-  td, th  {
-    border: 1px solid #5881BC;
-   text-align: left;
- }
-  input {
-    padding: 8px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  button {
-    position: absolute;
-    right: -25px;
-    bottom: 55px;
-    background: white;
-    border: none;
-    img {
-      width: 45px;
-    }
-  }
-  td {
+}
+
+
+.add {
+  width: 35px;
+  cursor: pointer;
+}
+
+// .ng-dirty.ng-invalid.error {
+//   border: 2px solid red!important;
+// }
+
+.error {
+  color: #C40606!important;
+  font-size: 0.78rem!important;
+  margin-top: -10px;
+}
+
+
+.errorDate {
+  margin-top: 0px;
+}
+
+@media (max-width: 580px) {
+  .content {
     padding: 10px!important;
   }
 }

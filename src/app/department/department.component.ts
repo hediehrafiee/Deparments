@@ -13,6 +13,15 @@ export class DepartmentComponent implements OnInit {
   listOfDeparments = [];
   activeRoute: string = '';
   deparment = [];
+  editId: number;
+  editClicked: boolean = false;
+  departemantEditObject: any;
+  editForm: FormGroup;
+  datePickerConfig = {
+    drops: 'up',
+    format: 'YYYY-MM-DD'
+  }
+  submitted: boolean;
 
   constructor(private route: ActivatedRoute,
               private formBuilder: FormBuilder,
@@ -70,7 +79,16 @@ export class DepartmentComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  createEditForm(){
+    this.editForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      birthday: ['', Validators.required]
+    });
+  }
+
+  add() {
+    this.submitted = true;
     if (this.form.invalid) return;
     const name = this.form.value.name;
     const surname = this.form.value.surname;
@@ -87,7 +105,6 @@ export class DepartmentComponent implements OnInit {
 
   removeDeparments(id:number) {
     this.deparment = this.deparment.filter(item => item.id !== id);
-    console.log(this.deparment);
     let dep = this.listOfDeparments.find(element => element.title.toUpperCase() == this.activeRoute);
     dep.students = this.deparment;
     localStorage.setItem('deparments', JSON.stringify(this.listOfDeparments));
@@ -96,8 +113,34 @@ export class DepartmentComponent implements OnInit {
   saveDeparments(name: string): void {
     if(!name) return
     this.listOfDeparments.push({ title: name, students:[ ] });
-    console.log("departments", this.listOfDeparments);
     localStorage.setItem('deparments', JSON.stringify(this.listOfDeparments));
+  }
+
+  editDeparments(id: number) {
+    this.createEditForm();
+    this.editId= id;
+    this.editClicked = true;
+    this.departemantEditObject = this.deparment.find(item => item.id == id);
+    this.editForm.patchValue({ 
+      name: this.departemantEditObject.name,
+      surname: this.departemantEditObject.surname,
+      birthday: this.departemantEditObject.birthday
+    });
+  }
+
+  edit() {
+    this.submitted = true;
+    if (this.editForm.invalid) return;
+    const name = this.editForm.value.name;
+    const surname = this.editForm.value.surname;
+    const birthday = this.editForm.value.birthday;
+    let dep = this.listOfDeparments.find(element => element.title.toUpperCase() == this.activeRoute);
+    let depEdit = dep.students.find(item => item.id == this.editId)
+    depEdit.name = name;
+    depEdit.surname = surname;
+    depEdit.birthday = birthday;
+    localStorage.setItem('deparments', JSON.stringify(this.listOfDeparments));  
+    this.editClicked = false; 
   }
 
 }

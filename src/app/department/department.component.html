@@ -1,54 +1,145 @@
 <div class="content">
   <!-- tabs -->
-  <ul>
-    <li *ngFor="let d of listOfDeparments">
-      <a [routerLink]="['',  d.title]" routerLinkActive="active">
-        {{ d.title | uppercase }} ( {{d.students.length}} )
-      </a>
-    </li>
-    <li>
-      <img [swal]="{ title: 'Enter Departments name', input: 'text' }"
-           (confirm)="saveDeparments($event)" class="add" src="assets/img/add.png" alt="add">
-    </li>
-  </ul>
+  <div class="text-center">
+    <ul>
+      <li *ngFor="let d of listOfDeparments">
+        <a [routerLink]="['',  d.title]" routerLinkActive="active">
+          {{ d.title | uppercase }} ( {{d.students.length}} )
+        </a>
+      </li>
+      <li>
+        <img [swal]="{ title: 'Enter Departments name', input: 'text' }"
+            (confirm)="saveDeparments($event)" class="add" src="assets/img/add.png" alt="add">
+      </li>
+    </ul>
+  </div>  
   <div class="table">
     <div class="title">
       students of {{ activeRoute }}
     </div>
-    <table>
-      <tr>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Birthday</th>
-        <th>operations</th>
-      </tr>
-      <tr *ngFor="let d of deparment">
-        <td>{{ d.name }}</td>
-        <td>{{ d.surname }}</td>
-        <td>{{ d.birthday }}</td>
-        <td>
-          <button class="remove" (click)="removeDeparments(d.id)">
+  </div>
+  <div class="container">
+    <div class="row titles">
+      <div class="col-3">
+        Name
+      </div>
+      <div class="col-3">
+        Surname
+      </div>
+      <div class="col-3">
+        Birthday
+      </div>
+      <div class="col-3">
+        Operations
+      </div>
+    </div> 
+    <div *ngFor="let d of deparment">
+      <div class="row" *ngIf="d.id != this.editId || !editClicked">
+        <div class="col-3">
+          {{ d.name }}
+        </div>
+        <div class="col-3">
+          {{ d.surname }}
+        </div>
+        <div class="col-3">
+          {{ d.birthday }}
+        </div>
+        <div class="col-3">
+          <a class="remove" (click)="removeDeparments(d.id)">
             <img src="assets/img/remove.png" alt="remove">
-          </button>
-        </td>  
-      </tr>
-    </table>
-    <form (ngSubmit)="onSubmit()" [formGroup]="form">
-      <tr>
-        <td>
-          <input formControlName="name" name="name" placeholder="name" type="text">
-        </td>
-        <td>
-          <input formControlName="surname" name="surname" placeholder="surname" type="text">
-        </td>
-        <td>
-          <input formControlName="birthday" name="birthday" placeholder="birthday" type="text">
-        </td>
-      </tr>
-     <button type="submit">
-       <img src="assets/img/check.png" alt="check-img">
-     </button>
+          </a>
+          <a class="edit ml-4" (click)="editDeparments(d.id)">
+            <img src="assets/img/pencil.png" alt="pencil">
+          </a>
+        </div>
+      </div> 
+      <form [formGroup]="editForm" (ngSubmit)="edit()" *ngIf="d.id == this.editId && editClicked">
+        <div class="row">
+          <div class="col-3">
+            <input placeholder="name" 
+                   formControlName="name" 
+                   name="name" 
+                   [ngClass]="{'error': editForm.get('name').hasError('required') && submitted }"
+                   required/>
+            <div class="error" *ngIf="editForm.get('name').hasError('required') && submitted">
+              This feild is required.
+            </div>
+          </div>
+          <div class="col-3">
+            <input placeholder="surname" 
+                    formControlName="surname" 
+                    name="surname" 
+                    [ngClass]="{'error': editForm.get('surname').hasError('required') && submitted }"
+                    required/>
+            <div class="error" *ngIf="editForm.get('surname').hasError('required') && submitted">
+                This feild is required.
+            </div>
+          </div>
+          <div class="col-3">
+            <dp-date-picker formControlName="birthday" 
+                            name="birthday" 
+                            mode="day"
+                            theme="dp-material"
+                            placeholder="birthday"
+                            [ngClass]="{'error': editForm.get('birthday').hasError('required') && submitted }"
+                            [config]="datePickerConfig" required>
+            </dp-date-picker> 
+            <div class="error errorDate" *ngIf="editForm.get('birthday').errors && editForm.get('birthday').dirty && !editForm.get('birthday').hasError('required')">
+              Don't match.
+            </div>
+            <div class="error errorDate" *ngIf="editForm.get('birthday').hasError('required') && submitted">
+              This feild is required.
+            </div>
+          </div>
+          <div class="col-3">
+            <button type="submit" class="btn btn-info w-100">done</button>
+          </div>
+        </div>  
+      </form>   
+    </div>
+    <h1 class="add mt-5 w-100"> Add new item :</h1>
+    <form (ngSubmit)="add()" [formGroup]="form">
+      <div class="row">
+        <div class="col-3">
+          <input placeholder="name" 
+                  formControlName="name" 
+                  name="name" 
+                  [ngClass]="{'error': form.get('name').hasError('required') && submitted }"
+                  required/>
+          <div class="error" *ngIf="form.get('name').hasError('required') && submitted">
+            This feild is required.
+          </div>
+        </div>
+        <div class="col-3">
+          <input placeholder="surname" 
+                  formControlName="surname" 
+                  name="surname" 
+                  [ngClass]="{'error': form.get('surname').hasError('required') && submitted }"
+                  required/>
+          <div class="error" *ngIf="form.get('surname').hasError('required') && submitted">
+              This feild is required.
+          </div>
+        </div>
+        <div class="col-3">
+          <dp-date-picker formControlName="birthday" 
+                      name="birthday" 
+                      mode="day"
+                      theme="dp-material"
+                      placeholder="birthday"
+                      [ngClass]="{'error': form.get('birthday').hasError('required') && submitted }"
+                      [config]="datePickerConfig" required>
+          </dp-date-picker> 
+          <div class="error errorDate" *ngIf="form.get('birthday').errors && form.get('birthday').dirty && !form.get('birthday').hasError('required')">
+                Don't match.
+          </div>
+          <div class="error errorDate" *ngIf="form.get('birthday').hasError('required') && submitted">
+              This feild is required.
+          </div>
+        </div>
+        <div class="col-3">
+          <button type="submit" class="btn btn-success w-100">Add</button>
+        </div>
+      </div>
     </form>
-
   </div>
 </div>
