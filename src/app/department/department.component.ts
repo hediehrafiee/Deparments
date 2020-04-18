@@ -22,6 +22,7 @@ export class DepartmentComponent implements OnInit {
     format: 'YYYY-MM-DD'
   }
   submitted: boolean;
+  addSubmitted: boolean;
 
   constructor(private route: ActivatedRoute,
               private formBuilder: FormBuilder,
@@ -88,7 +89,7 @@ export class DepartmentComponent implements OnInit {
   }
 
   add() {
-    this.submitted = true;
+    this.addSubmitted = true;
     if (this.form.invalid) return;
     const name = this.form.value.name;
     const surname = this.form.value.surname;

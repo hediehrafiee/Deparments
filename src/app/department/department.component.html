@@ -104,9 +104,9 @@
           <input placeholder="name" 
                   formControlName="name" 
                   name="name" 
-                  [ngClass]="{'error': form.get('name').hasError('required') && submitted }"
+                  [ngClass]="{'error': form.get('name').hasError('required') && addSubmitted }"
                   required/>
-          <div class="error" *ngIf="form.get('name').hasError('required') && submitted">
+          <div class="error" *ngIf="form.get('name').hasError('required') && addSubmitted">
             This feild is required.
           </div>
         </div>
@@ -114,9 +114,9 @@
           <input placeholder="surname" 
                   formControlName="surname" 
                   name="surname" 
-                  [ngClass]="{'error': form.get('surname').hasError('required') && submitted }"
+                  [ngClass]="{'error': form.get('surname').hasError('required') && addSubmitted }"
                   required/>
-          <div class="error" *ngIf="form.get('surname').hasError('required') && submitted">
+          <div class="error" *ngIf="form.get('surname').hasError('required') && addSubmitted">
               This feild is required.
           </div>
         </div>
@@ -126,13 +126,13 @@
                       mode="day"
                       theme="dp-material"
                       placeholder="birthday"
-                      [ngClass]="{'error': form.get('birthday').hasError('required') && submitted }"
+                      [ngClass]="{'error': form.get('birthday').hasError('required') && addSubmitted }"
                       [config]="datePickerConfig" required>
           </dp-date-picker> 
           <div class="error errorDate" *ngIf="form.get('birthday').errors && form.get('birthday').dirty && !form.get('birthday').hasError('required')">
                 Don't match.
           </div>
-          <div class="error errorDate" *ngIf="form.get('birthday').hasError('required') && submitted">
+          <div class="error errorDate" *ngIf="form.get('birthday').hasError('required') && addSubmitted">
               This feild is required.
           </div>
         </div>
