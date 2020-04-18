@@ -101,7 +101,7 @@ export class DepartmentComponent implements OnInit {
                           name: this.form.value.name,
                           surname: this.form.value.surname,
                           birthday: this.form.value.birthday});
-    this. setLocalStorage();
+    this.setLocalStorage();
     this.getDepartments();
   }
 
@@ -109,13 +109,13 @@ export class DepartmentComponent implements OnInit {
     this.department = this.department.filter(item => item.id !== id);
     let dep = this.listOfDepartments.find(element => element.title.toUpperCase() == this.activeRoute);
     dep.students = this.department;
-    this. setLocalStorage();
+    this.setLocalStorage();
   }
   
   saveDepartments(name: string): void {
     if(!name) return
     this.listOfDepartments.push({ title: name, students:[ ] });
-    this. setLocalStorage();
+    this.setLocalStorage();
   }
 
   editDepartments(id: number) : void {
@@ -138,7 +138,7 @@ export class DepartmentComponent implements OnInit {
     depEdit.name = this.editForm.value.name;
     depEdit.surname = this.editForm.value.surname;
     depEdit.birthday = this.editForm.value.birthday;
-    this. setLocalStorage();
+    this.setLocalStorage();
     this.editClicked = false; 
   }
 
