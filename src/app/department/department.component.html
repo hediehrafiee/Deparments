@@ -2,14 +2,14 @@
   <!-- tabs -->
   <div class="text-center">
     <ul>
-      <li *ngFor="let d of listOfDeparments">
+      <li *ngFor="let d of listOfDepartments">
         <a [routerLink]="['',  d.title]" routerLinkActive="active">
           {{ d.title | uppercase }} ( {{d.students.length}} )
         </a>
       </li>
       <li>
         <img [swal]="{ title: 'Enter Departments name', input: 'text' }"
-            (confirm)="saveDeparments($event)" class="add" src="assets/img/add.png" alt="add">
+            (confirm)="saveDepartments($event)" class="add" src="assets/img/add.png" alt="add">
       </li>
     </ul>
   </div>  
@@ -33,7 +33,7 @@
         Operations
       </div>
     </div> 
-    <div *ngFor="let d of deparment">
+    <div *ngFor="let d of department">
       <div class="row" *ngIf="d.id != this.editId || !editClicked">
         <div class="col-3">
           {{ d.name }}
@@ -45,15 +45,15 @@
           {{ d.birthday }}
         </div>
         <div class="col-3">
-          <a class="remove" (click)="removeDeparments(d.id)">
+          <a class="remove" (click)="removeDepartments(d.id)">
             <img src="assets/img/remove.png" alt="remove">
           </a>
-          <a class="edit ml-4" (click)="editDeparments(d.id)">
+          <a class="edit ml-4" (click)="editDepartments(d.id)">
             <img src="assets/img/pencil.png" alt="pencil">
           </a>
         </div>
       </div> 
-      <form [formGroup]="editForm" (ngSubmit)="edit()" *ngIf="d.id == this.editId && editClicked">
+      <form [formGroup]="editForm" (ngSubmit)="submitEdit()" *ngIf="d.id == this.editId && editClicked">
         <div class="row">
           <div class="col-3">
             <input placeholder="name" 
@@ -98,7 +98,7 @@
       </form>   
     </div>
     <h1 class="add mt-5 w-100"> Add new item :</h1>
-    <form (ngSubmit)="add()" [formGroup]="form">
+    <form (ngSubmit)="addNewStudent()" [formGroup]="form">
       <div class="row">
         <div class="col-3">
           <input placeholder="name" 
